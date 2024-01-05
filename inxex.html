@@ -1,0 +1,258 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scoreboard</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+  
+      .wrapper {
+        min-height: 100%;
+        position: relative;
+        padding: 0 0 80px 0;
+      }
+  
+      .container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 60px;
+      }
+  
+      .team {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 10px 20px;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        border-radius: 5px;
+        width: 200px;
+        height: 200px;
+        position: relative;
+      }
+  
+      .add-team {
+        position: absolute;
+        top: 120px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #000000;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        border-radius: 5px;
+        border: none;
+        font-size: 25px;
+        color: white;
+        font-weight: bold;
+        width: 240px;
+        height: 40px;
+        margin: auto;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+      }
+  
+      .add-team:hover {
+        background-color: #3e8e41;
+      }
+  
+      .add-team:active {
+        background-color: #00bfff;
+      }
+  
+      .team-name {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+  
+      .score {
+        font-size: 48px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+  
+      .button-container {
+        margin-top: 20px;
+        display: flex;
+        height: 100px;
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+      }
+  
+      .button {
+        width: 100%;
+        font-size: 20px;
+        margin: 5px;
+        font-weight: bold;
+        background-color: #00bfff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 4px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+      }
+  
+      .button:hover {
+        background-color: #3e8e41;
+      }
+  
+      .button:active {
+        background-color: #00bfff;
+      }
+  
+      .sub {
+        background-color: red;
+        padding: 10px;
+      }
+  
+      header {
+        background-color: #00bfff;
+        color: white;
+        height: 80px;
+        padding-top: 1px;
+        text-align: center;
+      }
+  
+      footer {
+        background-color: #00bfff;
+        color: white;
+        font-size: 14px;
+        padding: 1px;
+        text-align: center;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+      }
+    </style>
+  <link rel="manifest" href="/manifest.json"></head>
+  
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>SCORE 📋 BOARD</h1>
+      </header>
+  
+      <button class="add-team" onclick="addTeam()">Add Team</button>
+      <div class="container">
+        <div class="team">
+          <div class="team-name">TEAM 1</div>
+          <div class="score" id="team1-score">0</div>
+          <div class="button-container">
+            <button class="button" onclick="incrementScore('team1')">+1</button>
+            <button class="button" onclick="decrementScore('team1')">-1</button>
+          </div>
+        </div>
+        <div class="team">
+          <div class="team-name">TEAM 2</div>
+          <div class="score" id="team2-score">0</div>
+          <div class="button-container">
+            <button class="button" onclick="incrementScore('team2')">+1</button>
+            <button class="button" onclick="decrementScore('team2')">-1</button>
+          </div>
+        </div>
+        <div class="team">
+          <div class="team-name">TEAM 3</div>
+          <div class="score" id="team3-score">0</div>
+          <div class="button-container">
+            <button class="button" onclick="incrementScore('team3')">+1</button>
+            <button class="button" onclick="decrementScore('team3')">-1</button>
+          </div>
+        </div>
+      </div>
+      <footer>
+        <p>© 2023 💪 RunBuilder &amp; ChatGPT</p>
+      </footer>
+    </div>
+    <script>
+      function incrementScore(team) {
+        var scoreElement = document.getElementById(team + '-score');
+        var currentScore = parseInt(scoreElement.innerText);
+        scoreElement.innerText = currentScore + 1;
+      }
+  
+      function decrementScore(team) {
+        var scoreElement = document.getElementById(team + '-score');
+        var currentScore = parseInt(scoreElement.innerText);
+        scoreElement.innerText = currentScore - 1;
+      }
+  
+      function addTeam() {
+        var container = document.querySelector('.container');
+        // Create a new team div element
+        var teamDiv = document.createElement('div');
+        teamDiv.classList.add('team');
+        // Create the team name element
+        var teamNameDiv = document.createElement('div');
+        teamNameDiv.classList.add('team-name');
+        teamNameDiv.innerText = 'TEAM ' + (container.children.length + 1);
+        teamDiv.appendChild(teamNameDiv);
+        // Create the score element
+        var scoreDiv = document.createElement('div');
+        scoreDiv.classList.add('score');
+        scoreDiv.innerText = '0';
+        scoreDiv.setAttribute('id', 'team' + (container.children.length + 1) + '-score');
+        teamDiv.appendChild(scoreDiv);
+        // Create the button container
+        var buttonContainerDiv = document.createElement('div');
+        buttonContainerDiv.classList.add('button-container');
+        // Create the increment button
+        var incrementButton = document.createElement('button');
+        incrementButton.classList.add('button');
+        incrementButton.innerText = '+1';
+        incrementButton.setAttribute('onclick', 'incrementScore(\'team' + (container.children.length + 1) + '\')');
+        buttonContainerDiv.appendChild(incrementButton);
+        // Create the decrement button
+        var decrementButton = document.createElement('button');
+        decrementButton.classList.add('button');
+        decrementButton.innerText = '-1';
+        decrementButton.setAttribute('onclick', 'decrementScore(\'team' + (container.children.length + 1) + '\')');
+        buttonContainerDiv.appendChild(decrementButton);
+        // Create the delete button
+        var deleteButton = document.createElement('button');
+        deleteButton.classList.add('button', 'sub');
+        deleteButton.innerText = 'X';
+        buttonContainerDiv.appendChild(deleteButton);
+        //삭제전 확인
+        deleteButton.addEventListener('click', function() {
+          if (confirm('Really delete?')) {
+            teamDiv.remove();
+          }
+        });
+        //그냥삭제
+        // deleteButton.setAttribute('onclick', 'deleteTeam(this.parentNode.parentNode)');
+        buttonContainerDiv.appendChild(deleteButton);
+        // Add the button container to the team div
+        teamDiv.appendChild(buttonContainerDiv);
+        // Append the new team div to the container
+        container.appendChild(teamDiv);
+      }
+  
+      function deleteTeam(teamDiv) {
+        teamDiv.parentNode.removeChild(teamDiv);
+      }
+    </script>
+  
+  
+  <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./serviceWorker.js')
+            .then(registration => {
+              console.log('Service worker registered:', registration);
+            })
+            .catch(error => {
+              console.log('Service worker registration failed:', error);
+            });
+        });
+      }
+    </script></body></html>
